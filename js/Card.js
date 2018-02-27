@@ -20,19 +20,17 @@ function Card(id, name) {
 		card.append(cardDescription)
 		return card;
 	}
+}
 
-	Card.prototype = {
+Card.prototype = {
 	removeCard: function() {
 		var self = this;
 		$.ajax({
 			url: baseUrl + '/card/' + self.id,
 			method: 'DELETE',
 			success: function() {
-
-				console.log(self);
-				self.$element.remove();
+				self.element.remove();
 			}
 		});
 	}
-}
 }

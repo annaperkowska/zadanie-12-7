@@ -1,9 +1,10 @@
 // KLASA KANBAN CARD
-function Card(id, name) {
+function Card(id, name, columnId) {
 	var self = this;
 	
 	this.id = id;
 	this.name = name || 'No name given';
+	this.columnId = columnId;
 	this.element = createCard();
 
 	function createCard() {
@@ -18,7 +19,7 @@ function Card(id, name) {
 		$cardRename.click(function(event){
 			var newCardName = prompt('Podaj nową nazwę karty');
 			event.preventDefault();
-			self.renameCard(newCardName);
+			self.renameCard(newCardName, columnId);
 		});
 		
 		card.append(cardDeleteBtn);
@@ -41,17 +42,17 @@ Card.prototype = {
 		});
 	},
 
-	renameCard: function(newCardName) {
+	renameCard: function(newCardName, columnId) {
 		var self = this;
 		$.ajax({
 			url: baseUrl + '/card/' + self.id,
 			method: 'PUT',
 			data: {
-				bootcamp_kanban_column_id: self.id,
+				id: self.id,
+				bootcamp_kanban_column_id: columnId,
 				name: newCardName
 			},
 			success: function(response) {
-				console.log(self.element);
 				self.element.find('p').replaceWith(newCardName);
 			}
 		});

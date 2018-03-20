@@ -1,6 +1,6 @@
 function Column(id, name) {
 	var self = this;
-	
+	var columnId = id;
 	this.id = id;
 	this.name = name || 'No name given';
 	this.element = createColumn();
